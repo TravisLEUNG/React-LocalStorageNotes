@@ -1,0 +1,129 @@
+/* General Variables */
+$dark: #242424;
+$light-dark: #666;
+$light: #dbdbdb;
+$dark-light: #999;
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: $light;
+}
+
+.split {
+  display: flex;
+}
+
+/* Start Screen */
+#StartScreen {
+  button {
+    margin: 20px auto;
+  }
+}
+
+/* Sidebar */
+#Sidebar {
+  height: auto;
+  padding: 20px 10px;
+  background-color: $light-dark;
+
+  .sidebar--header {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    margin: 0;
+    padding: 0 10px;
+    line-height: 0px;
+    border-bottom: 3px solid $dark;
+    .add--btn {
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .sidebar--notes {
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: start;
+    color: $dark-light;
+
+    .title {
+      border-radius: 8px;
+    }
+    .title:hover {
+      color: $light;
+      background-color: rgba($dark, 0.5);
+    }
+
+    h4 {
+      padding: 0 10px;
+      margin: 0;
+    }
+  }
+
+  .selected-note {
+    color: $light;
+    background-color: $dark;
+  }
+}
+
+/* Editor */
+#Editor {
+  width: 70%;
+  padding: 20px 10px;
+
+  .mde-header {
+    display: grid;
+    grid-template-columns: 0.75fr 1fr 1fr;
+    justify-items: baseline;
+    margin-bottom: 10px;
+    border-bottom: 2px solid $light;
+    .mde-tabs {
+      display: flex;
+      align-self: center;
+      button {
+        margin: 0 10px 0 4px;
+      }
+    }
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding: 0;
+      margin: 10px 0;
+      li {
+        margin: 0 4px;
+        svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+
+  }
+  textarea {
+    width: 99%;
+  }
+}
+
+.mde-preview {
+  display: block;
+  text-align: start;
+  ul {
+    margin: 0;
+    padding: 0 0 0 30px;
+  }
+  ol {
+    margin: 0;
+    padding: 0 0 0 30px;
+    li::marker {
+      padding-right: 10px;
+    }
+  }
+}
+
+.invisible {
+  display: none;
+}
