@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import ReactMde from "react-mde";
 import Showdown from "showdown";
 
@@ -13,8 +13,8 @@ export default function Editor(props: {
     onClickAction: CallBackFunc;
 }) {
     const [selectedTab, setSelectedTab] =
-        React.useState<MdeSelectedTabType>("write");
-    const [readonly, setReadonly] = React.useState<boolean>(false);
+        useState<MdeSelectedTabType>("write");
+    // const [readonly, setReadonly] = useState<boolean>(false);
 
     const converter = new Showdown.Converter({
         tables: true,

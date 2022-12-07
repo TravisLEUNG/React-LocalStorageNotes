@@ -12,14 +12,17 @@ type Note = {
 };
 
 export default function MainContainer() {
-    const [notes, setNotes] = useState<Note[]>((): Note[] => JSON.parse(localStorage.getItem("Notes") || "[]") as Note[] || []);
+    const [notes, setNotes] = useState<Note[]>(
+        (): Note[] =>
+            (JSON.parse(localStorage.getItem("Notes") || "[]") as Note[]) || []
+    );
     const [currentNoteId, setCurrentNoteId] = useState<string>(
         notes[0]?.id || ""
     );
 
     useEffect(() => {
-        localStorage.setItem("Notes", JSON.stringify(notes))
-    }, [notes])
+        localStorage.setItem("Notes", JSON.stringify(notes));
+    }, [notes]);
 
     const createNewNote = (): void => {
         const newNote: Note = {
@@ -31,12 +34,18 @@ export default function MainContainer() {
     };
 
     const updateNote = (text: string): void => {
-        setNotes((oldNotes) =>
-            oldNotes.map((oldNote) => {
-                return oldNote.id === currentNoteId
-                    ? { ...oldNote, body: text }
-                    : oldNote;
-            })
+        setNotes(
+            (oldNotes) =>
+                [
+                    { ...oldNotes.find((note) => note.id === currentNoteId), body: text },
+                    ...oldNotes.filter((note) => note.id != currentNoteId),
+                ] as Note[]
+        );
+    };
+
+    const deleteNote = (noteId: string): void => {
+        setNotes(
+            (oldNotes) => [...oldNotes.filter((note) => note.id != noteId)] as Note[]
         );
     };
 
@@ -51,18 +60,29 @@ export default function MainContainer() {
     return (
         <main>
             {notes.length > 0 ? (
-                <Split sizes={[30, 70]} gutterSize={0} direction="horizontal" className="split">
+                <Split
+                    sizes={[30, 70]}
+                    gutterSize={0}
+                    direction="horizontal"
+                    className="split"
+                >
                     <Sidebar
                         notes={notes}
                         currentNote={findCurrentNote()}
                         setCurrentNoteId={setCurrentNoteId}
                         newNote={createNewNote}
+                        deleteNote={deleteNote}
                     />
                     {currentNoteId && (
-                        <Editor currentNote={findCurrentNote()} onClickAction={updateNote} />
+                        <Editor
+                            currentNote={findCurrentNote()}
+                            onClickAction={updateNote}
+                        />
                     )}
                 </Split>
-            ) : <StartScreen onClickAction={createNewNote} />}
+            ) : (
+                <StartScreen onClickAction={createNewNote} />
+            )}
         </main>
     );
 }
