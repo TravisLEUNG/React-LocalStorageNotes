@@ -34,6 +34,7 @@ export default function MainContainer() {
     };
 
     const updateNote = (text: string): void => {
+        console.log(text);
         setNotes(
             (oldNotes) =>
                 [
@@ -61,7 +62,7 @@ export default function MainContainer() {
         <main>
             {notes.length > 0 ? (
                 <Split
-                    sizes={[30, 70]}
+                    sizes={[20, 80]}
                     gutterSize={0}
                     direction="horizontal"
                     className="split"
